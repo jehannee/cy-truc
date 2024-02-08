@@ -17,7 +17,7 @@ if [ $# -eq 1 ]; then
 fi
 
 #traitement d1
-
+elif [ "$arg" == "-d1" ] || [ "$arg" == "-D1" ]; then
 awk -F';' '$2 == 1 {conducteurs[$6]++} END {for (conducteur in conducteurs) print conducteurs[conducteur], conducteur}' "$fichier_csv" | sort -k1,1nr | head -n 10 | awk -F' ' '{print $2 " " $3 ";" $1}' > temp/top10_conducteur.txt 
 
 awk '{a[i++]=$0} END {for (j=i-1; j>=0;) print a[j--] }' temp/top10_conducteur.txt > temp/top10_temp.txt 
@@ -25,7 +25,7 @@ awk '{a[i++]=$0} END {for (j=i-1; j>=0;) print a[j--] }' temp/top10_conducteur.t
 cat temp/top10_temp.txt > temp/data_d1.txt
 
 #traitement d2
-
+elif [ "$arg" == "-d1" ] || [ "$arg" == "-D1" ]; then
 cat data.csv | cut -d";" -f5,6 | awk -F ';' '{noms[$1] += $2; sommes[$1] = $2} END {for (k in noms) print k ";" noms[k] ";" sommes[k]}' | sort -rn | head -10 > temp/result_D2.txt
 gnuplot -persist << GNU_CMD
 set terminal png
